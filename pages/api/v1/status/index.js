@@ -1,4 +1,8 @@
-function Status(request, response) {
+import database from "../../../../infra/database.js";
+
+async function status(request, response) {
+  const result = await database.query("SELECT 1 + 1 as sum;");
+  console.log(result.rows);
   response.status(200).json({
     status: "ok",
     timestamp: new Date().toISOString(),
@@ -8,4 +12,4 @@ function Status(request, response) {
   });
 }
 
-export default Status;
+export default status;
