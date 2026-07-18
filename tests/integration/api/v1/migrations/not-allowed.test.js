@@ -1,34 +1,38 @@
-test("DELETE to api/v1/migrations should return 405", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: "DELETE",
-  });
-  expect(response.status).toBe(405);
+import orchestrator from "tests/orchestrator.js";
+
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
 });
 
-test("PATCH to api/v1/migrations should return 405", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations", {
+test("NOT ALLOWED methods to api/v1/migrations should return 405", async () => {
+  const deleteResponse = await fetch(
+    "http://localhost:3000/api/v1/migrations",
+    {
+      method: "DELETE",
+    },
+  );
+  expect(deleteResponse.status).toBe(405);
+
+  const patchResponse = await fetch("http://localhost:3000/api/v1/migrations", {
     method: "PATCH",
   });
-  expect(response.status).toBe(405);
-});
+  expect(patchResponse.status).toBe(405);
 
-test("PUT to api/v1/migrations should return 405", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations", {
+  const putResponse = await fetch("http://localhost:3000/api/v1/migrations", {
     method: "PUT",
   });
-  expect(response.status).toBe(405);
-});
+  expect(putResponse.status).toBe(405);
 
-test("HEAD to api/v1/migrations should return 405", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations", {
+  const headResponse = await fetch("http://localhost:3000/api/v1/migrations", {
     method: "HEAD",
   });
-  expect(response.status).toBe(405);
-});
+  expect(headResponse.status).toBe(405);
 
-test("OPTIONS to api/v1/migrations should return 405", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: "OPTIONS",
-  });
-  expect(response.status).toBe(405);
+  const optionsResponse = await fetch(
+    "http://localhost:3000/api/v1/migrations",
+    {
+      method: "OPTIONS",
+    },
+  );
+  expect(optionsResponse.status).toBe(405);
 });
