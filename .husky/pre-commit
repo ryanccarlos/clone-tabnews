@@ -1,2 +1,3 @@
-# brew install gitleaks
+#!/usr/bin/env sh
+#brew install gitleaks
 gitleaks protect --staged -v
