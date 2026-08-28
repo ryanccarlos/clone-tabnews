@@ -4,7 +4,8 @@
   "description": "Learning and implementing development concepts in a full-stack project.",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run services:up && npm run services:wait:database && npm run migrations:up && next dev",
+    "dev": "node infra/scripts/run-dev.js",
+    "postdev": "npm run services:stop",
     "test": "npm run services:up && concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\" || npm run posttest",
     "posttest": "npm run services:stop",
     "test:watch": "jest --watchAll --runInBand",
