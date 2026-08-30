@@ -4,35 +4,41 @@ beforeAll(async () => {
   await orchestrator.waitForAllServices();
 });
 
-test("NOT ALLOWED methods to api/v1/migrations should return 405", async () => {
-  const deleteResponse = await fetch(
-    "http://localhost:3000/api/v1/migrations",
-    {
-      method: "DELETE",
-    },
-  );
-  expect(deleteResponse.status).toBe(405);
+describe("NOT ALLOWED METHODS api/v1/migrations", () => {
+  describe("Anonymous user", () => {
+    test("DELETE method", async () => {
+      const response = await fetch("http://localhost:3000/api/v1/migrations", {
+        method: "DELETE",
+      });
+      expect(response.status).toBe(405);
+    });
 
-  const patchResponse = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: "PATCH",
+    test("PATCH method", async () => {
+      const response = await fetch("http://localhost:3000/api/v1/migrations", {
+        method: "PATCH",
+      });
+      expect(response.status).toBe(405);
+    });
+
+    test("PUT method", async () => {
+      const response = await fetch("http://localhost:3000/api/v1/migrations", {
+        method: "PUT",
+      });
+      expect(response.status).toBe(405);
+    });
+
+    test("HEAD method", async () => {
+      const response = await fetch("http://localhost:3000/api/v1/migrations", {
+        method: "HEAD",
+      });
+      expect(response.status).toBe(405);
+    });
+
+    test("OPTIONS method", async () => {
+      const response = await fetch("http://localhost:3000/api/v1/migrations", {
+        method: "OPTIONS",
+      });
+      expect(response.status).toBe(405);
+    });
   });
-  expect(patchResponse.status).toBe(405);
-
-  const putResponse = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: "PUT",
-  });
-  expect(putResponse.status).toBe(405);
-
-  const headResponse = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: "HEAD",
-  });
-  expect(headResponse.status).toBe(405);
-
-  const optionsResponse = await fetch(
-    "http://localhost:3000/api/v1/migrations",
-    {
-      method: "OPTIONS",
-    },
-  );
-  expect(optionsResponse.status).toBe(405);
 });
