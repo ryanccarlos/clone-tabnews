@@ -4,7 +4,11 @@ beforeAll(async () => {
   await orchestrator.waitForAllServices();
 });
 
-test("GET to INITIAL PAGE should return  200", async () => {
-  const response = await fetch("http://localhost:3000");
-  expect(response.status).toBe(200);
+describe("GET to initial page", () => {
+  describe("Anonymous user", () => {
+    test("Retrieving the initial page", async () => {
+      const response = await fetch("http://localhost:3000");
+      expect(response.status).toBe(200);
+    });
+  });
 });
